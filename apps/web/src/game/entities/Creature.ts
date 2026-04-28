@@ -1,5 +1,5 @@
 import { GAME_CONFIG, CREATURE_TEMPLATES, getMaxTier } from '../config.js';
-import type { Creature, CreatureTemplate } from './types.js';
+import type { Creature, CreatureTemplate } from '../../types.js';
 
 let creatureId = 0;
 

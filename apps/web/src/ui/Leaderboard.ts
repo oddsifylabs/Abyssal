@@ -1,5 +1,5 @@
 import { api } from '../net/api.js';
-import type { LeaderboardEntry } from './types.js';
+import type { LeaderboardEntry } from '../types.js';
 
 export class LeaderboardUI {
   private container: HTMLElement;
