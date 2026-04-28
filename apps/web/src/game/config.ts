@@ -1,4 +1,4 @@
-import type { ZoneConfig, CreatureTemplate } from './types.js';
+import type { ZoneConfig, CreatureTemplate } from '../types.js';
 
 export const GAME_CONFIG = {
   WORLD_DEPTH: 5000,

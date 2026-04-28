@@ -1,4 +1,4 @@
-import type { PlayerState, Creature, Boss, Particle, Lure, InkCloud } from './types.js';
+import type { PlayerState, Creature, Boss, Particle, Lure, InkCloud } from '../types.js';
 import { ZONES, ZONE_DEPTHS, TRAITS, GAME_CONFIG } from '../config.js';
 
 export class Renderer {
