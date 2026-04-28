@@ -30,8 +30,8 @@ app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/runs', runLimiter, ClerkExpressRequireAuth(), runsRouter);
 app.use('/api/daily', dailyRouter);
 
-// Socket.io arena rooms
-const _rooms = new Map<string, any>();
+// Socket.io arena rooms (placeholder for future multiplayer)
+// const rooms = new Map<string, any>();
 
 io.on('connection', (socket) => {
   console.log('Socket connected:', socket.id);

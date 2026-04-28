@@ -1,7 +1,7 @@
 import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
-import type { Request, Response, NextFunction } from 'express';
+import type { Request } from 'express';
 
-export const requireAuth = ClerkExpressRequireAuth();
+export const requireAuth: ReturnType<typeof ClerkExpressRequireAuth> = ClerkExpressRequireAuth();
 
 export interface AuthRequest extends Request {
   auth?: {
