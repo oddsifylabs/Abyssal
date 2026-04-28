@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "start": "cd apps/api && npm run start",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "sprites": "cd assets/sprites && node generate-svgs.js && node build.js"
