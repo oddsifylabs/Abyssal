@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="104" viewBox="0 0 104 104">
+    <defs>
+      <radialGradient id="cgsquid" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#a02878" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#a02878" stop-opacity="0.6"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="52" cy="52" rx="41.6" ry="26" fill="url(#cgsquid)"/>
+    <ellipse cx="72.8" cy="44.2" rx="7.8" ry="5.2" fill="rgba(255,255,255,0.5)"/>
+  </svg>

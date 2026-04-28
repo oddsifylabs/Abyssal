@@ -1,0 +1,2 @@
+/api/*  https://api.abyssal.oddsifylabs.com/api/:splat  200
+/socket.io/*  https://api.abyssal.oddsifylabs.com/socket.io/:splat  200

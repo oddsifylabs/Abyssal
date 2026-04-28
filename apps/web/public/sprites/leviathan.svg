@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+    <defs>
+      <radialGradient id="cgleviathan" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#143278" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#143278" stop-opacity="0.6"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="96" cy="96" rx="76.80000000000001" ry="48" fill="url(#cgleviathan)"/>
+    <ellipse cx="134.4" cy="81.6" rx="14.399999999999999" ry="9.600000000000001" fill="rgba(255,255,255,0.5)"/>
+  </svg>

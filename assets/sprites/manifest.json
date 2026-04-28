@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "format": "svg",
+  "sprites": {
+    "player": "player.svg",
+    "boss": "boss.svg",
+    "ink": "ink.svg",
+    "lure": "lure.svg",
+    "creatures": {
+      "plankton": "plankton.svg",
+      "mote": "mote.svg",
+      "shrimp": "shrimp.svg",
+      "jellyfish": "jellyfish.svg",
+      "seahorse": "seahorse.svg",
+      "anglerfish": "anglerfish.svg",
+      "eel": "eel.svg",
+      "manta": "manta.svg",
+      "viperfish": "viperfish.svg",
+      "squid": "squid.svg",
+      "dragonfish": "dragonfish.svg",
+      "coelacanth": "coelacanth.svg",
+      "leviathan": "leviathan.svg"
+    }
+  },
+  "notes": "Placeholder SVG sprites. Replace with commissioned pixel art or vector assets."
+}

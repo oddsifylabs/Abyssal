@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76">
+    <defs>
+      <radialGradient id="cgviperfish" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#3cb478" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#3cb478" stop-opacity="0.6"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="38" cy="38" rx="30.400000000000002" ry="19" fill="url(#cgviperfish)"/>
+    <ellipse cx="53.2" cy="32.3" rx="5.7" ry="3.8000000000000003" fill="rgba(255,255,255,0.5)"/>
+  </svg>

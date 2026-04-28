@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <defs>
+      <radialGradient id="cgshrimp" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#dc9646" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#dc9646" stop-opacity="0.6"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="22" cy="22" rx="17.6" ry="11" fill="url(#cgshrimp)"/>
+    <ellipse cx="30.8" cy="18.7" rx="3.3" ry="2.2" fill="rgba(255,255,255,0.5)"/>
+  </svg>
