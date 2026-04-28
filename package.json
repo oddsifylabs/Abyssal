@@ -17,6 +17,7 @@
   "dependencies": {
     "turbo": "^2.0.0"
   },
+  "packageManager": "npm@10.8.2",
   "engines": {
     "node": "20.20.2"
   }
