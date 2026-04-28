@@ -12,7 +12,6 @@
     "db:generate": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID --schema public > src/db/database.types.ts"
   },
   "dependencies": {
-    "@abyssal/types": "workspace:*",
     "@clerk/clerk-sdk-node": "^4.13.0",
     "@supabase/supabase-js": "^2.39.0",
     "cors": "^2.8.5",
