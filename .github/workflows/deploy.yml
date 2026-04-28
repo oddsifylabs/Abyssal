@@ -12,10 +12,12 @@ jobs:
       - uses: railway/cli@v3
         with:
           railway_token: ${{ secrets.RAILWAY_TOKEN }}
-      - run: railway up --service abyssal-api
+      - run: railway up --service abyssal-api --environment production
+        working-directory: apps/api
 
   deploy-web:
     runs-on: ubuntu-latest
+    needs: deploy-api
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
