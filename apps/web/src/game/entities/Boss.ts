@@ -1,4 +1,4 @@
-import type { Boss } from '@abyssal/types';
+import type { Boss } from './types.js';
 
 export function spawnBoss(canvasWidth: number, camY: number, canvasHeight: number): Boss {
   return {

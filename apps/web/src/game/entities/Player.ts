@@ -1,5 +1,5 @@
 import { GAME_CONFIG, TRAITS } from '../config.js';
-import type { PlayerState } from '@abyssal/types';
+import type { PlayerState } from './types.js';
 
 export function createPlayer(canvasWidth: number): PlayerState {
   return {
