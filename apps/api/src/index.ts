@@ -31,7 +31,7 @@ app.use('/api/runs', runLimiter, ClerkExpressRequireAuth(), runsRouter);
 app.use('/api/daily', dailyRouter);
 
 // Socket.io arena rooms
-const rooms = new Map<string, any>();
+const _rooms = new Map<string, any>();
 
 io.on('connection', (socket) => {
   console.log('Socket connected:', socket.id);

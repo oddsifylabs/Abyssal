@@ -50,7 +50,7 @@ router.post('/', async (req: AuthRequest, res) => {
   // Check and award badges
   await awardBadges(userId, run);
 
-  res.status(201).json({ run: data });
+  return res.status(201).json({ run: data });
 });
 
 async function awardBadges(userId: string, run: any) {

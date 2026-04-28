@@ -23,7 +23,7 @@ router.get('/', async (_req, res) => {
   expiresAt.setUTCDate(expiresAt.getUTCDate() + 1);
   expiresAt.setUTCHours(0, 0, 0, 0);
 
-  res.json({
+  return res.json({
     date: today,
     seed,
     zone: 4,

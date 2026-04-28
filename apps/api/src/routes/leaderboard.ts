@@ -28,7 +28,7 @@ router.get('/daily', async (_req, res) => {
     createdAt: r.created_at,
   }));
 
-  res.json({ leaderboard: ranked, date: today });
+  return res.json({ leaderboard: ranked, date: today });
 });
 
 router.get('/weekly', async (_req, res) => {
@@ -55,7 +55,7 @@ router.get('/weekly', async (_req, res) => {
     createdAt: r.created_at,
   }));
 
-  res.json({ leaderboard: ranked });
+  return res.json({ leaderboard: ranked });
 });
 
 router.get('/alltime', async (_req, res) => {
@@ -80,7 +80,7 @@ router.get('/alltime', async (_req, res) => {
     createdAt: r.created_at,
   }));
 
-  res.json({ leaderboard: ranked });
+  return res.json({ leaderboard: ranked });
 });
 
 router.get('/user/:userId/best', async (req, res) => {
@@ -93,7 +93,7 @@ router.get('/user/:userId/best', async (req, res) => {
     .single();
 
   if (error) return res.status(404).json({ error: 'No runs found' });
-  res.json({ bestRun: data });
+  return res.json({ bestRun: data });
 });
 
 export { router as leaderboardRouter };

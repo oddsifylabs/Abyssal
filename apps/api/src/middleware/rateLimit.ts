@@ -2,7 +2,7 @@ import rateLimit from 'express-rate-limit';
 import Redis from 'ioredis';
 
 // In-memory for now; swap to Redis when scaling
-const memoryStore = new Map<string, { count: number; resetTime: number }>();
+const _memoryStore = new Map<string, { count: number; resetTime: number }>();
 
 export const runLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
