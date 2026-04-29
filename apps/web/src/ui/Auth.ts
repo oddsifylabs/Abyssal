@@ -20,7 +20,7 @@ export class AuthUI {
     }
 
     try {
-      const Clerk = (await import('@clerk/clerk-js')).default;
+      const Clerk = (await import('@clerk/clerk-js')).default as any;
       const clerk = new Clerk(key);
       await clerk.load();
       this.clerkLoaded = true;

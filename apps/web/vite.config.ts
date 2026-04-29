@@ -18,7 +18,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           game: ['./src/game/index.ts'],
-          ui: ['./src/ui/index.ts'],
         },
       },
     },

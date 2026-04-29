@@ -3,6 +3,7 @@ import type { PlayerState } from '../../types.js';
 
 export function createPlayer(canvasWidth: number): PlayerState {
   return {
+    id: 'player-1',
     x: canvasWidth / 2,
     y: 300,
     vx: 0,

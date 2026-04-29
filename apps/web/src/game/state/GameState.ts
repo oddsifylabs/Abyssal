@@ -1,4 +1,4 @@
-import type { PlayerState, Creature, Boss, Particle, Lure, InkCloud } from '../types.js';
+import type { PlayerState, Creature, Boss, Particle, Lure, InkCloud } from '../../types.js';
 import { GAME_CONFIG, ZONES, ZONE_DEPTHS, getCurrentZone, TRAITS, seededRandom } from '../config.js';
 import { createPlayer, updatePlayer, gainTrait, levelUp } from '../entities/Player.js';
 import { spawnCreature, updateCreature } from '../entities/Creature.js';
