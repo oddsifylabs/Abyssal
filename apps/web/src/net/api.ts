@@ -1,6 +1,6 @@
 import type { LeaderboardEntry, DailyChallenge, RunSubmission } from '../types.js';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://abyssal-production.up.railway.app';
 
 async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {
