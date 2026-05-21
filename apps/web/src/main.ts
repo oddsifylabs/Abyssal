@@ -29,12 +29,14 @@ class App {
     app.innerHTML = `
       <canvas id="gameCanvas" style="display:block;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;cursor:crosshair;"></canvas>
       <div id="uiOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10;"></div>
-      <div id="pauseScreen" style="display:none;position:fixed;inset:0;z-index:20;background:rgba(0,5,20,0.85);backdrop-filter:blur(4px);justify-content:center;align-items:center;flex-direction:column;gap:16px;font-family:'Orbitron',monospace;color:rgba(80,180,255,0.9);">
-        <h1 style="font-size:32px;letter-spacing:12px;text-shadow:0 0 30px rgba(80,180,255,0.7);">PAUSED</h1>
-        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(80,140,180,0.55);">ESC or P to resume</div>
-        <button id="resumeBtn" style="border:1px solid rgba(80,180,255,0.4);background:rgba(0,20,50,0.6);color:rgba(100,200,255,0.9);font-family:'Orbitron',monospace;font-size:12px;letter-spacing:4px;padding:12px 32px;cursor:pointer;border-radius:2px;">— RESUME —</button>
-        <button id="menuBtn" style="border:1px solid rgba(80,180,255,0.4);background:rgba(0,20,50,0.6);color:rgba(100,200,255,0.9);font-family:'Orbitron',monospace;font-size:12px;letter-spacing:4px;padding:12px 32px;cursor:pointer;border-radius:2px;margin-top:8px;">— MAIN MENU —</button>
-        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(80,120,160,0.5);margin-top:16px;line-height:1.8;text-align:center;">
+      <div id="pauseScreen" style="display:none;position:fixed;inset:0;z-index:20;background:rgba(0,4,16,0.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);justify-content:center;align-items:center;flex-direction:column;gap:18px;font-family:'Orbitron',monospace;color:rgba(100,200,255,0.95);">
+        <h1 style="font-size:36px;letter-spacing:14px;text-shadow:0 0 40px rgba(80,180,255,0.6);margin-bottom:8px;">PAUSED</h1>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(100,160,200,0.5);">ESC or P to resume</div>
+        <div style="width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(80,180,255,0.3),transparent);margin:4px 0;"></div>
+        <button id="resumeBtn" style="border:1px solid rgba(80,180,255,0.35);background:rgba(4,20,50,0.55);color:rgba(120,210,255,0.95);font-family:'Orbitron',monospace;font-size:12px;letter-spacing:4px;padding:14px 40px;cursor:pointer;border-radius:8px;transition:all 0.2s;">RESUME</button>
+        <button id="menuBtn" style="border:1px solid rgba(80,180,255,0.35);background:rgba(4,20,50,0.55);color:rgba(120,210,255,0.95);font-family:'Orbitron',monospace;font-size:12px;letter-spacing:4px;padding:14px 40px;cursor:pointer;border-radius:8px;transition:all 0.2s;margin-top:4px;">MAIN MENU</button>
+        <div style="width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(80,180,255,0.2),transparent);margin:8px 0;"></div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(80,130,170,0.45);line-height:1.9;text-align:center;">
           WASD / ARROWS · move<br>
           SPACE · dash<br>
           CLICK · place lure<br>
@@ -42,8 +44,8 @@ class App {
         </div>
       </div>
       <div id="joystick" style="display:none;position:fixed;bottom:100px;left:40px;z-index:15;pointer-events:none;">
-        <div id="joystickBase" style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(80,180,255,0.3);background:rgba(0,20,50,0.4);position:relative;">
-          <div id="joystickKnob" style="width:32px;height:32px;border-radius:50%;background:rgba(80,180,255,0.5);border:1px solid rgba(80,180,255,0.7);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:transform 0.05s;"></div>
+        <div id="joystickBase" style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(80,180,255,0.25);background:rgba(4,20,50,0.35);position:relative;">
+          <div id="joystickKnob" style="width:32px;height:32px;border-radius:50%;background:rgba(80,180,255,0.45);border:1px solid rgba(80,180,255,0.6);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:transform 0.05s;box-shadow:0 0 12px rgba(80,180,255,0.3);"></div>
         </div>
       </div>
     `;
@@ -160,9 +162,13 @@ class App {
   private showToast(msg: string) {
     const el = document.createElement('div');
     el.textContent = msg;
-    el.style.cssText = `position:fixed;bottom:40px;left:50%;transform:translateX(-50%);background:rgba(0,20,50,0.9);border:1px solid rgba(80,180,255,0.4);color:rgba(140,220,255,1);padding:10px 24px;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;border-radius:20px;z-index:100;`;
+    el.style.cssText = `position:fixed;bottom:44px;left:50%;transform:translateX(-50%);background:rgba(4,20,50,0.88);border:1px solid rgba(80,180,255,0.3);color:rgba(160,230,255,1);padding:12px 28px;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;border-radius:24px;z-index:100;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 24px rgba(0,10,30,0.5);`;
     document.body.appendChild(el);
-    setTimeout(() => el.remove(), 3000);
+    setTimeout(() => {
+      el.style.opacity = '0';
+      el.style.transition = 'opacity 0.4s';
+      setTimeout(() => el.remove(), 400);
+    }, 3000);
   }
 
   private loop(ts: number) {
@@ -189,7 +195,11 @@ class App {
         this.game.particles,
         this.game.lures,
         this.game.inkClouds,
-        this.warnFlash
+        this.warnFlash,
+        this.game.floatingTexts,
+        this.game.screenShake,
+        this.game.zoneFlash,
+        this.game.zoneFlashName,
       );
     }
 

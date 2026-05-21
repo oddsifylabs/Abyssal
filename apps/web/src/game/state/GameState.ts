@@ -1,4 +1,4 @@
-import type { PlayerState, Creature, Boss, Particle, Lure, InkCloud } from '../../types.js';
+import type { PlayerState, Creature, Boss, Particle, Lure, InkCloud, FloatingText } from '../../types.js';
 import { GAME_CONFIG, ZONES, ZONE_DEPTHS, getCurrentZone, TRAITS, seededRandom } from '../config.js';
 import { createPlayer, updatePlayer, gainTrait, levelUp } from '../entities/Player.js';
 import { spawnCreature, updateCreature } from '../entities/Creature.js';
@@ -28,6 +28,7 @@ export class GameState {
   player: PlayerState | null = null;
   creatures: Creature[] = [];
   particles: Particle[] = [];
+  floatingTexts: FloatingText[] = [];
   lures: Lure[] = [];
   inkClouds: InkCloud[] = [];
   boss: Boss | null = null;
@@ -40,7 +41,10 @@ export class GameState {
   audio = new AudioSystem();
   seed: string = Math.random().toString(36).slice(2);
   rng: () => number = Math.random;
-  
+  screenShake = 0;
+  zoneFlash = 0;
+  zoneFlashName = '';
+
   private canvas: HTMLCanvasElement;
   private callbacks: GameCallbacks;
   private animFrame: number = 0;
@@ -60,20 +64,21 @@ export class GameState {
     this.player = createPlayer(this.canvas.width);
     this.creatures = [];
     this.particles = [];
+    this.floatingTexts = [];
     this.lures = [];
     this.inkClouds = [];
     this.boss = null;
     this.camY = 0;
     this.currentZone = 0;
     this.bossSpawned = false;
-    this.zoneName = ZONES[0].name;
     this.zoneAccent = ZONES[0].accent;
+    this.zoneName = ZONES[0].name;
     this.startTime = performance.now();
-    
+
     for (let i = 0; i < GAME_CONFIG.MAX_CREATURES; i++) {
       this.creatures.push(spawnCreature(this.canvas.width, 0, this.canvas.height, this.rng));
     }
-    
+
     this.audio.startAmbient(0);
     this.callbacks.onPhaseChange('playing');
     this.loop();
@@ -92,7 +97,7 @@ export class GameState {
 
   handleClick(cx: number, cy: number) {
     if (this.phase !== 'playing' || !this.player) return;
-    
+
     this.lures.push({ x: cx, y: cy, worldY: cy + this.camY, life: 130 });
     this.burst(cx, cy, [80, 200, 255], 12, 2.5, 35);
     this.particles.push({ x: cx, y: cy, vx: 0, vy: 0, col: [80, 200, 255], life: 40, maxLife: 40, r: 30, ring: true });
@@ -104,6 +109,7 @@ export class GameState {
         this.boss.hp -= 8;
         this.audio.sfxBoss();
         this.burst(this.boss.x, this.boss.y - this.camY, [180, 50, 255], 8, 4, 30);
+        this.addFloatingText(this.boss.x, this.boss.y - this.camY, '-8', [220, 80, 255], 14);
         if (this.boss.hp <= 0) this.boss.alive = false;
       }
     }
@@ -115,6 +121,20 @@ export class GameState {
     const p = this.player;
     const W = this.canvas.width;
     const H = this.canvas.height;
+
+    // Decay screen shake
+    this.screenShake *= 0.9;
+    if (this.screenShake < 0.3) this.screenShake = 0;
+    this.zoneFlash *= 0.96;
+    if (this.zoneFlash < 0.01) this.zoneFlash = 0;
+
+    // Update floating texts
+    for (let i = this.floatingTexts.length - 1; i >= 0; i--) {
+      const ft = this.floatingTexts[i];
+      ft.y += ft.dy;
+      ft.life--;
+      if (ft.life <= 0) this.floatingTexts.splice(i, 1);
+    }
 
     // Update player
     const { camY } = updatePlayer(p, keys, joystickDx, joystickDy, W, dt);
@@ -139,7 +159,11 @@ export class GameState {
       this.zoneName = ZONES[nz].name;
       this.audio.sfxZone();
       this.audio.startAmbient(nz);
-      this.burst(p.x, p.y - this.camY, ZONES[nz].accent, 20, 4, 50);
+      this.zoneFlash = 1;
+      this.zoneFlashName = ZONES[nz].name;
+      this.screenShake = 6;
+      this.burst(p.x, p.y - this.camY, ZONES[nz].accent, 24, 5, 55);
+      this.burst(p.x, p.y - this.camY, [255, 255, 255], 10, 3, 30);
     }
 
     // Spawn boss
@@ -147,6 +171,10 @@ export class GameState {
       this.bossSpawned = true;
       this.boss = spawnBoss(W, this.camY, H);
       this.audio.sfxBoss();
+      this.screenShake = 10;
+      this.zoneFlash = 1;
+      this.zoneFlashName = 'BOSS APPEARS';
+      this.burst(W / 2, H / 2, [180, 40, 255], 40, 6, 80);
     }
 
     // Update boss
@@ -158,7 +186,13 @@ export class GameState {
         p.iframes = GAME_CONFIG.IFRAMES_DAMAGE;
         this.audio.sfxDamage();
         this.burst(p.x, p.y - this.camY, [255, 60, 60], 14, 3, 35);
+        this.addFloatingText(p.x, p.y - this.camY, `-${Math.ceil(actualDmg)}`, [255, 60, 60], 12);
+        this.screenShake = Math.min(this.screenShake + 3, 12);
       });
+      // Boss phase transition shake
+      if (this.boss.phase >= 2 && this.boss.hp / this.boss.maxHp <= 0.5 && this.boss.hp > 0) {
+        this.screenShake = Math.min(this.screenShake + 0.5, 8);
+      }
     }
 
     // Update creatures & collisions
@@ -179,6 +213,8 @@ export class GameState {
             p.iframes = GAME_CONFIG.IFRAMES_CREATURE;
             this.audio.sfxDamage();
             this.burst(p.x, p.y - this.camY, [255, 60, 60], 10, 2.5, 30);
+            this.addFloatingText(p.x, p.y - this.camY, `-${Math.ceil(dmg)}`, [255, 60, 60], 11);
+            this.screenShake = Math.min(this.screenShake + 2, 8);
 
             if (p.traits.includes('ink')) {
               this.inkClouds.push({ x: p.x, y: p.y, r: 10, maxR: 80, life: 180, maxLife: 180, alpha: 0.6 });
@@ -193,15 +229,24 @@ export class GameState {
           p.xp += c.tmpl.pts;
           p.eaten++;
           p.score += c.tmpl.pts;
-          this.burst(c.x, c.y - this.camY, c.tmpl.col, 12, 2, 35);
+          this.burst(c.x, c.y - this.camY, c.tmpl.col, 14, 2.5, 40);
+          this.burst(c.x, c.y - this.camY, [255, 255, 255], 6, 1.5, 20);
+          this.addFloatingText(c.x, c.y - this.camY, `+${c.tmpl.pts}`, [120, 255, 180], 12);
 
           if (c.tmpl.trait && !p.traits.includes(c.tmpl.trait) && Math.random() < GAME_CONFIG.TRAIT_DROP_CHANCE) {
             gainTrait(p, c.tmpl.trait);
+            this.addFloatingText(p.x, p.y - this.camY - 30, `TRAIT: ${TRAITS[c.tmpl.trait] || c.tmpl.trait}`, [255, 220, 80], 13);
+            this.burst(p.x, p.y - this.camY, [255, 220, 80], 16, 3, 45);
+            this.screenShake = Math.min(this.screenShake + 2, 6);
           }
 
           if (p.xp >= p.xpNext) {
             levelUp(p);
             this.audio.sfxEvolve();
+            this.addFloatingText(p.x, p.y - this.camY - 40, 'LEVEL UP!', [80, 200, 255], 18);
+            this.burst(p.x, p.y - this.camY, [80, 200, 255], 24, 4, 55);
+            this.burst(p.x, p.y - this.camY, [255, 255, 255], 12, 3, 30);
+            this.screenShake = Math.min(this.screenShake + 3, 8);
             for (let j = 0; j < 4; j++) this.creatures.push(spawnCreature(W, this.camY, H, this.rng));
           }
 
@@ -277,6 +322,13 @@ export class GameState {
       const s = Math.random() * spd;
       this.particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, col, life, maxLife: life, r: 1.5 + Math.random() * 2.5 });
     }
+  }
+
+  private addFloatingText(x: number, y: number, text: string, color: [number, number, number], size: number) {
+    this.floatingTexts.push({
+      x, y, text, color, size,
+      life: 50, maxLife: 50, dy: -0.8,
+    });
   }
 
   private loop = () => {

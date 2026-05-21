@@ -79,3 +79,38 @@ export function seededRandom(seed: string): () => number {
     return (s - 1) / 2147483646;
   };
 }
+
+export interface CreatureVisual {
+  body: 'ellipse' | 'bell' | 'worm' | 'diamond' | 'serpent' | 'mantle' | 'round' | 'spiky';
+  fins: 'tail' | 'dorsal' | 'side' | 'wing' | 'lobe' | 'tentacle' | 'none';
+  eyeSize: number;
+  glowSpots: number;
+  tailLen: number;
+  spots: boolean;
+  whiskers: boolean;
+}
+
+export const CREATURE_VISUALS: Record<string, CreatureVisual> = {
+  plankton: { body: 'round', fins: 'none', eyeSize: 0, glowSpots: 2, tailLen: 0, spots: false, whiskers: false },
+  mote: { body: 'round', fins: 'none', eyeSize: 0.4, glowSpots: 3, tailLen: 0, spots: false, whiskers: false },
+  shrimp: { body: 'worm', fins: 'tail', eyeSize: 0.5, glowSpots: 0, tailLen: 0.6, spots: false, whiskers: true },
+  jellyfish: { body: 'bell', fins: 'tentacle', eyeSize: 0.3, glowSpots: 4, tailLen: 0.8, spots: true, whiskers: false },
+  seahorse: { body: 'serpent', fins: 'dorsal', eyeSize: 0.5, glowSpots: 0, tailLen: 0.3, spots: false, whiskers: false },
+  anglerfish: { body: 'spiky', fins: 'side', eyeSize: 0.7, glowSpots: 1, tailLen: 0.2, spots: false, whiskers: false },
+  eel: { body: 'worm', fins: 'dorsal', eyeSize: 0.5, glowSpots: 0, tailLen: 0.9, spots: false, whiskers: false },
+  manta: { body: 'diamond', fins: 'wing', eyeSize: 0.4, glowSpots: 0, tailLen: 0.3, spots: false, whiskers: false },
+  viperfish: { body: 'worm', fins: 'side', eyeSize: 0.6, glowSpots: 2, tailLen: 0.5, spots: false, whiskers: true },
+  squid: { body: 'mantle', fins: 'tentacle', eyeSize: 0.55, glowSpots: 0, tailLen: 0.7, spots: false, whiskers: false },
+  dragonfish: { body: 'spiky', fins: 'side', eyeSize: 0.6, glowSpots: 3, tailLen: 0.4, spots: true, whiskers: true },
+  coelacanth: { body: 'ellipse', fins: 'lobe', eyeSize: 0.5, glowSpots: 0, tailLen: 0.3, spots: true, whiskers: false },
+  leviathan: { body: 'serpent', fins: 'dorsal', eyeSize: 0.8, glowSpots: 5, tailLen: 1.2, spots: true, whiskers: false },
+};
+
+export const TRAIT_ICONS: Record<string, string> = {
+  swift: '⚡',
+  luminous: '✦',
+  lure: '◉',
+  regen: '↻',
+  ink: '◈',
+  armored: '⬡',
+};

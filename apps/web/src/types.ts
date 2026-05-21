@@ -166,4 +166,22 @@ export interface GameRoom {
   createdAt: number;
 }
 
+export interface FloatingText {
+  x: number;
+  y: number;
+  text: string;
+  color: [number, number, number];
+  life: number;
+  maxLife: number;
+  size: number;
+  dy: number;
+}
+
+export interface DashTrailPoint {
+  x: number;
+  y: number;
+  r: number;
+  life: number;
+}
+
 export type GameScreen = 'title' | 'playing' | 'dead' | 'win' | 'paused' | 'leaderboard' | 'daily';
